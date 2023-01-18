@@ -1,11 +1,11 @@
 {
-  "name": "@nodebb/nodebb-plugin-node-ldap",
+  "name": "@pembrock/nodebb-plugin-node-ldap",
   "version": "2.0.4",
   "description": "NodeBB LDAP Login",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NodeBB-Community/nodebb-plugin-node-ldap"
+    "url": "https://github.com/pembrock/nodebb-plugin-node-ldap"
   },
   "keywords": [
     "nodebb",
