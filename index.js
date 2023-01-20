@@ -264,7 +264,7 @@
             winston.verbose("[LDAP] fullname: " + fullname)
             winston.verbose("[LDAP] username: " + username)
             winston.verbose("[LDAP] email: " + email)
-            nodebb_ldap.getUserByLdapUid(profile.uid, (err, dbUser) => {
+            nodebb_ldap.getUserByLdapUid(profile.mail, (err, dbUser) => {
                 if (err) {
                     return callback(err);
                 }
@@ -272,7 +272,7 @@
                     // user exists
                     // now we check the user groups
                     winston.verbose("[LDAP] user exists")
-                    return nodebb_ldap.postLogin(dbUser.uid, profile.uid, callback);
+                    return nodebb_ldap.postLogin(dbUser.uid, profile.mail, callback);
                 } else {
                     // New User
                     winston.verbose("[LDAP] user does not exists")
@@ -296,9 +296,9 @@
                         }
                         await Promise.all([
                             user.setUserFields(uid, {
-                                'nodebbldap:uid:': profile.uid
+                                'nodebbldap:mail:': profile.mail
                             }),
-                            db.setObjectField('ldapid:uid', profile.uid, uid)
+                            db.setObjectField('ldapid:mail', profile.mail, uid)
                         ]);
 
                         nodebb_ldap.postLogin(uid, profile.uid, callback);
@@ -385,7 +385,8 @@
         },
 
         getUserByLdapUid: (ldapUid, callback) => {
-            db.getObjectField('ldapid:uid', ldapUid, (err, uid) => {
+            //console.log('getUserByLdapUid: ' + ldapUid)
+            db.getObjectField('ldapid:mail', ldapUid, (err, uid) => {
                 if (err) {
                     return callback(err);
                 }
